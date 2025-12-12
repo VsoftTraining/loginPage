@@ -1,48 +1,58 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const navigate = useNavigate();
 
-  // Form fields
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Field-wise errors
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let newErrors = {};
 
-    // -------- LOGIN VALIDATION --------
     if (isLoginMode) {
       if (!email.trim()) newErrors.email = "Email is required";
       if (!password.trim()) newErrors.password = "Password is required";
     }
 
-    // -------- SIGNUP VALIDATION --------
     if (!isLoginMode) {
-      if (!name.trim()) newErrors.name = "Name is required";
+      if (!fullName.trim()) newErrors.fullName = "Name is required";
       if (!email.trim()) newErrors.email = "Email is required";
       if (!password.trim()) newErrors.password = "Password is required";
       if (!confirmPassword.trim())
         newErrors.confirmPassword = "Confirm Password is required";
 
-      if (
-        password.trim() &&
-        confirmPassword.trim() &&
-        password !== confirmPassword
-      ) {
+      if (password !== confirmPassword)
         newErrors.confirmPassword = "Passwords do not match";
-      }
     }
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert(isLoginMode ? "Login Successful!" : "Signup Successful!");
+      if (isLoginMode) {
+        alert("Login Successful!");
+      } else {
+        alert("Signup Successful!");
+
+        // Send signup data to Registration page
+       navigate("/registration", {
+  state: {
+    fullName,
+    email,
+    password,
+  },
+});
+
+      }
     }
   };
 
@@ -50,17 +60,15 @@ const Login = () => {
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="w-[430px] bg-white p-8 rounded-2xl shadow-lg">
 
-        <div className="flex justify-center mb-4">
-          <h2 className="text-3xl font-semibold text-center">
-            {isLoginMode ? "Login" : "Sign Up"}
-          </h2>
-        </div>
+        <h2 className="text-3xl font-semibold text-center mb-4">
+          {isLoginMode ? "Login" : "Sign Up"}
+        </h2>
 
-        {/* Toggle Buttons */}
+        {/* Toggle */}
         <div className="relative flex h-12 mb-6 border border-gray-300 rounded-full overflow-hidden">
           <div
-            className={`absolute top-0 h-full w-1/2 rounded-full bg-gradient-to-r 
-            from-blue-700 via-cyan-600 to-cyan-200 transition-all duration-300 
+            className={`absolute top-0 h-full w-1/2 rounded-full bg-gradient-to-r
+            from-blue-700 via-cyan-600 to-cyan-200 transition-all duration-300
             ${isLoginMode ? "left-0" : "left-1/2"}`}
           ></div>
 
@@ -89,20 +97,19 @@ const Login = () => {
           </button>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          
-          {/* NAME (Signup Only) */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* NAME */}
           {!isLoginMode && (
             <div>
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="Full Name"
                 className="w-full p-3 border-b-2 border-gray-300 outline-none"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name}</p>
+              {errors.fullName && (
+                <p className="text-red-500 text-sm">{errors.fullName}</p>
               )}
             </div>
           )}
@@ -122,33 +129,49 @@ const Login = () => {
           </div>
 
           {/* PASSWORD */}
-          <div>
+          <div className="relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               className="w-full p-3 border-b-2 border-gray-300 outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            <span
+              className="absolute right-2 top-3 cursor-pointer text-blue-600"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
+
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
 
-          {/* CONFIRM PASSWORD (Signup Only) */}
+          {/* CONFIRM PASSWORD */}
           {!isLoginMode && (
-            <div>
+            <div className="relative">
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 className="w-full p-3 border-b-2 border-gray-300 outline-none"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+
+              <span
+                className="absolute right-2 top-3 cursor-pointer text-blue-600"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+              >
+                {showConfirmPassword ? "Hide" : "Show"}
+              </span>
+
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">
-                  {errors.confirmPassword}
-                </p>
+                <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
               )}
             </div>
           )}

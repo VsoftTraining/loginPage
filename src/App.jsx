@@ -1,14 +1,24 @@
-import React from 'react'
-// import Login from './Components/Login'
-import Registration from '../src/Components/Registration';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DashBoard from "./Components/DashBoard.jsx"
+import Login from "./Components/Login";
+import Registration from "./Components/Registration";
 
-const App = () => {
+function App() {
   return (
-    <div className='grid w-[100%] h-screen place -items-center bg-cyan-400'>
-      {/* <Login/> */}
-      <Registration />
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Login />} />
+
+        {/* FIXED: Registration Route */}
+        <Route path="/registration" element={<Registration />} />
+
+        <Route path="/dashboard" element={<DashBoard />} />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+
+export default App;
