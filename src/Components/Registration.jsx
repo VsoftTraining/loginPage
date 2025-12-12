@@ -66,7 +66,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-fuchsia-300">
+    <div className="min-h-screen flex justify-center items-center bg-blue-300">
       <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-[450px] mx-4">
 
         <h2 className="text-center text-3xl font-bold mb-6">Registration Form</h2>
@@ -156,7 +156,7 @@ const Registration = () => {
 
           <button
             type="submit"
-            className="w-full bg-fuchsia-500 text-white p-3 rounded-lg hover:bg-fuchsia-600 transition"
+            className="w-full bg-blue-300 text-white p-3 rounded-lg hover:bg-blue-300 transition"
           >
             Register
           </button>

@@ -39,7 +39,8 @@ const Login = () => {
 
     if (Object.keys(newErrors).length === 0) {
       if (isLoginMode) {
-        alert("Login Successful!");
+        // alert("Login Successful!");
+        navigate("/dashboard" )
       } else {
         alert("Signup Successful!");
 
@@ -57,7 +58,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-screen flex justify-center items-center bg-blue-300">
       <div className="w-[430px] bg-white p-8 rounded-2xl shadow-lg">
 
         <h2 className="text-3xl font-semibold text-center mb-4">

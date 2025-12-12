@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Dashboard = () => {
+    const navigate = useNavigate();
+
   const [userName, setUserName] = useState("");
+  const handleLogout =()=>{
+    localStorage.removeItem("fullName");
+    navigate('/');
+  }
 
   // Load user name once when component mounts
   useEffect(() => {
@@ -11,17 +20,18 @@ const Dashboard = () => {
     }
   }, []);
 
+
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen flex bg-blue-300">
 
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md p-6 hidden md:block">
+      <div className="w-64 bg-blue-200 shadow-md p-6 hidden md:block">
         <h2 className="text-2xl font-bold mb-8">MyApp</h2>
 
         <ul className="space-y-4">
-          <li className="cursor-pointer hover:text-blue-600 font-medium">Dashboard</li>
-          <li className="cursor-pointer hover:text-blue-600 font-medium">Profile</li>
-          <li className="cursor-pointer hover:text-blue-600 font-medium">Settings</li>
+          <li className="cursor-pointer hover:text-fuchsia-600 font-medium">Dashboard</li>
+          <li className="cursor-pointer hover:text-fuchsia-600 font-medium">Profile</li>
+          <li className="cursor-pointer hover:text-fuchsia-600 font-medium">Settings</li>
         </ul>
       </div>
 
@@ -34,7 +44,7 @@ const Dashboard = () => {
 
           <div className="flex items-center gap-4">
             <span className="font-medium">{userName}</span>
-            <button className="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600">
+            <button className="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600" onClick={handleLogout}>
               Logout
             </button>
           </div>
