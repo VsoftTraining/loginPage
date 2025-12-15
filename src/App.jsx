@@ -7,28 +7,28 @@ import SunTask from "./Components/SunTask.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    // <BrowserRouter>
+    //   <Routes>
 
-         <Route path="/" element={<Login />} />
+    //      <Route path="/" element={<Login />} />
 
      
-        <Route path="/register" element={<Registration />} /> 
+    //     <Route path="/register" element={<Registration />} /> 
 
-         <Route path="/dashboard" element={<DashBoard />} />
-         <Route path="/UserProfile" element={<UserProfile />} /> 
-
-
-      </Routes>
-    </BrowserRouter>
+    //      <Route path="/dashboard" element={<DashBoard />} />
+    //      <Route path="/UserProfile" element={<UserProfile />} /> 
 
 
+    //   </Routes>
+    // </BrowserRouter>
 
 
 
-    // <div>
-    //   <SunTask />
-    // </div>
+
+
+    <div>
+      <SunTask />
+    </div>
 
 
   );
