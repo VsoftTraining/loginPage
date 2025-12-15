@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Registration = () => {
@@ -20,9 +20,25 @@ const Registration = () => {
 
   const [errors, setErrors] = useState({});
 
+  
+// useEffect(() => {
+//   setName("");
+//   setEmail("");
+//   setPassword("");
+//   setConfirmPassword("");
+//   setRole("");
+//   setErrors({});
+// }, []);
+
+useEffect(() => {
+  localStorage.removeItem("fullName");
+  localStorage.removeItem("email");
+  localStorage.removeItem("role");
+}, []);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let newErrors = {};
 
     if (!fullName.trim()) newErrors.fullName = "Name is required";
@@ -30,7 +46,7 @@ const Registration = () => {
     if (!email.trim()) {
       newErrors.email = "Email is required";
     } else if (!email.includes("@") || !email.endsWith(".com")) {
-      newErrors.email = "Enter a valid email";
+      newErrors.email = "Enter a valid email with @ and .com";
     }
 
     const upperCase = /[A-Z]/;
@@ -57,11 +73,15 @@ const Registration = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert("Registration successful!");
+      // alert("Registration successful!");
 
       localStorage.setItem("fullName", fullName);
+localStorage.setItem("email", email);
+localStorage.setItem("role", role);
 
-      navigate("/dashboard");
+navigate("/dashboard");
+
+   
     }
   };
 
@@ -156,12 +176,16 @@ const Registration = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-300 text-white p-3 rounded-lg hover:bg-blue-300 transition"
+            className="w-full bg-blue-300 text-white p-3 rounded-lg hover:bg-blue-600 "
+            
           >
+           
+
             Register
           </button>
         </form>
       </div>
+
     </div>
   );
 };

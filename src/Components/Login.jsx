@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -14,6 +14,7 @@ const Login = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [errors, setErrors] = useState({});
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,10 +43,10 @@ const Login = () => {
         // alert("Login Successful!");
         navigate("/dashboard" )
       } else {
-        alert("Signup Successful!");
+        // alert("Signup Successful!");
 
         // Send signup data to Registration page
-       navigate("/registration", {
+       navigate("/register", {
   state: {
     fullName,
     email,
